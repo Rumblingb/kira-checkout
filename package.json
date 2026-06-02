@@ -1,0 +1,8 @@
+{
+  "name": "kira-checkout",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx serve . --ssl-cert cert.pem --ssl-key key.pem",
+    "dev": "npx serve ."
+  }
+}
