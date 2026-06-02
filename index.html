@@ -172,7 +172,6 @@ html, body {
 #camera-video {
   width: 100%; height: 100%;
   object-fit: cover;
-  transform: scaleX(-1); /* mirror for selfie feel */
 }
 #scan-overlay {
   position: absolute; inset: 0;
@@ -864,7 +863,8 @@ async function startCamera() {
     if (!ZXing) { console.warn('ZXing not loaded'); return; }
 
     const codeReader = new ZXing.BrowserMultiFormatReader();
-    codeReader.decodeFromVideoElement(cameraVideo, (result, err) => {
+    // decodeFromStream owns the stream; pass the pre-acquired stream + element
+    codeReader.decodeFromStream(stream, cameraVideo, (result, err) => {
       if (result) {
         const code = result.getText();
         if (!scanCooldown && code !== lastScanned) {
